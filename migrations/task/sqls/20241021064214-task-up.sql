@@ -309,7 +309,7 @@ FROM (
 	FROM "CREDIT_PURCHASE"
 	INNER JOIN "CREDIT_PACKAGE" ON "CREDIT_PACKAGE".id = "CREDIT_PURCHASE".credit_package_id
 	WHERE "CREDIT_PURCHASE".purchase_at >= '2024-12-01 00:00:00' AND "CREDIT_PURCHASE".purchase_at <= '2024-12-31 23:59:59' --改成12月
-	GROUP BY "CREDIT_PACKAGE".name, "CREDIT_PACKAGE".price;
+	GROUP BY "CREDIT_PACKAGE".name, "CREDIT_PACKAGE".price
 );
 -- 6-5. 查詢：計算 11 月份有預約課程的會員人數（需使用 Distinct，並用 created_at 和 status 欄位統計）
 -- 顯示須包含以下欄位： 預約會員人數
