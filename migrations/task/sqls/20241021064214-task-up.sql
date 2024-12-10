@@ -183,7 +183,7 @@ INSERT INTO "COURSE" (user_id, skill_id, "name", start_at, end_at, max_participa
 VALUES
 ((SELECT "id" FROM "USER" WHERE "name" = '李燕容'), 
 (SELECT "id" FROM "SKILL" WHERE "name" = '重訓'), 
-'重訓基礎課', '2024-11-25 14:00:00', '2024-11-25 16:00:00', 10, ' https://test-meeting.test.io');
+'重訓基礎課', '2024-11-25 14:00:00', '2024-11-25 16:00:00', 10, 'https://test-meeting.test.io');
 
 -- ████████  █████   █    █████ 
 --   █ █   ██    █  █     █     
@@ -263,7 +263,7 @@ GROUP BY "COURSE_BOOKING".user_id;
     -- on "COURSE_BOOKING".user_id = "CREDIT_PURCHASE".user_id;
 SELECT "CREDIT_PURCHASE".user_id, 
 SUM("CREDIT_PURCHASE".purchased_credits) - (SELECT count(*) FROM "COURSE_BOOKING" 
-WHERE "COURSE_BOOKING".user_id = (SELECT "id" FROM "USER" WHERE "name" = '王小明')) AS remaining_credit
+WHERE "COURSE_BOOKING".user_id = (SELECT "id" FROM "USER" WHERE "name" = '王小明') AND "status" != '課程已取消') AS remaining_credit
 FROM "CREDIT_PURCHASE"
 INNER JOIN "USER" ON "USER".id = "CREDIT_PURCHASE".user_id
 WHERE "USER".name = '王小明'
@@ -283,6 +283,7 @@ FROM "USER"
 INNER JOIN "COACH" ON "COACH".user_id = "USER".id
 INNER JOIN "COACH_LINK_SKILL" ON "COACH_LINK_SKILL".coach_id = "COACH".id
 INNER JOIN "SKILL" ON "COACH_LINK_SKILL".skill_id = "SKILL".id
+WHERE "SKILL".name = '重訓'
 ORDER BY "COACH".experience_years;
 -- 6-2 查詢：查詢每種專長的教練數量，並只列出教練數量最多的專長（需使用 group by, inner join 與 order by 與 limit 語法）
 -- 顯示須包含以下欄位： 專長名稱, coach_total
